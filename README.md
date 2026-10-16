@@ -323,6 +323,8 @@ Grad-CAM은 일부 class에서는 의미 있는 영역을 보여줬지만 모든
 wafer-map-defect-classification/
 ├── README.md
 ├── .gitignore
+├── requirements.txt
+├── streamlit_app.py
 ├── notebooks/
 │   └── wafer_project.ipynb
 └── results/
@@ -374,6 +376,36 @@ Result packaging
 
 ---
 
+## Streamlit Demo
+
+프로젝트의 전처리 → 예측 → class probability → Grad-CAM 흐름을 직접 확인할 수 있는 Streamlit demo를 추가했습니다.
+
+```bash
+pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
+
+Demo 기능:
+
+- `.npy` / `.csv` wafer map 업로드
+- PNG/JPG 입력 지원(시각 데모용 approximate conversion)
+- 64×64 nearest-neighbor preprocessing
+- 9-class prediction
+- class probability bar chart
+- Grad-CAM visualization
+- synthetic Center / Edge-Ring / Loc / Scratch sample
+- checkpoint 미설정 시 명확한 안내
+
+학습된 checkpoint는 GitHub에 포함하지 않습니다. 실제 inference를 사용하려면 다음 둘 중 하나를 사용하면 됩니다.
+
+1. 앱 sidebar에서 `final_tempered_cnn_earlystop.pt` 업로드
+2. 로컬에서 `models/final_tempered_cnn_earlystop.pt` 경로에 checkpoint 배치
+
+> Synthetic sample은 UI와 inference pipeline 동작 확인용이며, WM-811K test performance 평가용 데이터가 아닙니다.
+
+
+---
+
 ## Reproducibility
 
 원본 WM-811K 데이터와 학습 checkpoint는 repository에 포함하지 않습니다.
@@ -411,7 +443,7 @@ Result packaging
 - direct resize와 aspect-ratio-preserving preprocessing의 비교
 - Grad-CAM++ 등 추가 explainability 비교
 - repeated/group cross-validation을 통한 rare-class 안정성 확인
-- inference demo 구축
+- Streamlit demo 배포 시 checkpoint hosting 방식 정리
 
 ---
 
@@ -428,6 +460,7 @@ Result packaging
 - Final early-stopping training ✅
 - Final result packaging ✅
 - README cleanup ✅
+- Streamlit inference demo ✅
 
 ---
 
