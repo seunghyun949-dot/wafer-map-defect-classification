@@ -4,7 +4,7 @@
 
 WM-811K wafer map 데이터를 이용해 9개 패턴을 분류하고, 단순 Accuracy보다 **데이터 누수 방지, 불균형 대응, minority-class 성능, 모델 실패 구조**를 중심으로 분석한 프로젝트입니다.
 
-[📓 Full Experiment Notebook](notebooks/wafer_project.ipynb)
+[🚀 Live Demo](https://wafer-map-defect-classification-hosszcsr97joayh8brtf4n.streamlit.app/) · [📓 Full Experiment Notebook](notebooks/wafer_project.ipynb)
 
 ## Key Results
 
@@ -388,6 +388,8 @@ Result packaging
 
 ## Streamlit Demo
 
+**Live app:** https://wafer-map-defect-classification-hosszcsr97joayh8brtf4n.streamlit.app/
+
 프로젝트의 전처리 → 예측 → class probability → Grad-CAM 흐름을 직접 확인할 수 있는 Streamlit demo를 추가했습니다.
 
 ```bash
@@ -453,7 +455,7 @@ Demo 기능:
 - direct resize와 aspect-ratio-preserving preprocessing의 비교
 - Grad-CAM++ 등 추가 explainability 비교
 - repeated/group cross-validation을 통한 rare-class 안정성 확인
-- Streamlit demo 배포 시 checkpoint hosting 방식 정리
+- checkpoint를 외부 저장소/배포 환경과 안전하게 연결해 업로드 없이 즉시 inference 가능하도록 개선
 
 ---
 
@@ -471,6 +473,7 @@ Demo 기능:
 - Final result packaging ✅
 - README cleanup ✅
 - Streamlit inference demo ✅
+- Streamlit Community Cloud deployment ✅
 
 ---
 
