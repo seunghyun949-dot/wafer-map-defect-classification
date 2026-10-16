@@ -406,12 +406,15 @@ Demo 기능:
 - class probability bar chart
 - Grad-CAM visualization
 - synthetic Center / Edge-Ring / Loc / Scratch sample
-- checkpoint 미설정 시 명확한 안내
+- GitHub Release의 검증된 final checkpoint 자동 다운로드
+- 자동 다운로드 실패 시 sidebar checkpoint 업로드 fallback
 
-학습된 checkpoint는 GitHub에 포함하지 않습니다. 실제 inference를 사용하려면 다음 둘 중 하나를 사용하면 됩니다.
+학습된 checkpoint는 일반 repository 파일로 commit하지 않고 **GitHub Release asset**으로 분리했습니다.
 
-1. 앱 sidebar에서 `final_tempered_cnn_earlystop.pt` 업로드
-2. 로컬에서 `models/final_tempered_cnn_earlystop.pt` 경로에 checkpoint 배치
+- Release: `v1.0.0`
+- Asset: `final_tempered_cnn_earlystop.pt`
+- Streamlit 앱은 실행 시 checkpoint를 자동 다운로드하고 SHA-256을 검증합니다.
+- 자동 다운로드가 실패할 때만 sidebar의 checkpoint uploader를 fallback으로 사용할 수 있습니다.
 
 > Synthetic sample은 UI와 inference pipeline 동작 확인용이며, WM-811K test performance 평가용 데이터가 아닙니다.
 
@@ -455,7 +458,8 @@ Demo 기능:
 - direct resize와 aspect-ratio-preserving preprocessing의 비교
 - Grad-CAM++ 등 추가 explainability 비교
 - repeated/group cross-validation을 통한 rare-class 안정성 확인
-- checkpoint를 외부 저장소/배포 환경과 안전하게 연결해 업로드 없이 즉시 inference 가능하도록 개선
+- 실제 WM-811K 샘플 기반 demo example 추가
+- Streamlit cold-start와 model caching 최적화
 
 ---
 
@@ -474,6 +478,7 @@ Demo 기능:
 - README cleanup ✅
 - Streamlit inference demo ✅
 - Streamlit Community Cloud deployment ✅
+- GitHub Release checkpoint auto-loading ✅
 
 ---
 
