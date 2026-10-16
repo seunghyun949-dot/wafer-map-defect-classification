@@ -4,6 +4,8 @@
 
 WM-811K wafer map 데이터를 이용해 9개 패턴을 분류하고, 단순 Accuracy보다 **데이터 누수 방지, 불균형 대응, minority-class 성능, 모델 실패 구조**를 중심으로 분석한 프로젝트입니다.
 
+[📓 Full Experiment Notebook](notebooks/wafer_project.ipynb)
+
 ## Key Results
 
 | Model | Accuracy | Balanced Accuracy | Macro-F1 |
@@ -322,7 +324,6 @@ wafer-map-defect-classification/
 ├── README.md
 ├── .gitignore
 ├── notebooks/
-│   ├── 01_wafer_project.ipynb
 │   └── wafer_project.ipynb
 └── results/
     ├── final_model_comparison.csv
@@ -337,7 +338,7 @@ wafer-map-defect-classification/
     └── final_project_metrics.json
 ```
 
-현재 전체 실험 기록은 `notebooks/wafer_project.ipynb`에 정리되어 있습니다. 초기 notebook도 실험 이력 보존을 위해 함께 남겨 두었습니다.
+전체 실험 기록은 `notebooks/wafer_project.ipynb`에 정리되어 있습니다.
 
 ---
 
