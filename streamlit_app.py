@@ -33,7 +33,7 @@ st.caption(
 
 st.info(
     "This demo reproduces the project inference pipeline. "
-    "The trained checkpoint is intentionally not committed to GitHub."
+    "The verified final checkpoint is loaded automatically from the GitHub Release."
 )
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -44,11 +44,11 @@ with st.sidebar:
     st.write(f"Device: **{device}**")
 
     checkpoint_upload = st.file_uploader(
-        "Upload final checkpoint (.pt)",
+        "Fallback: upload checkpoint (.pt)",
         type=["pt", "pth"],
         help=(
-            "Use final_tempered_cnn_earlystop.pt. "
-            "Model files are excluded from GitHub."
+            "Normally no upload is needed. Use this only if automatic "
+            "checkpoint download is temporarily unavailable."
         ),
     )
 
@@ -164,8 +164,8 @@ st.divider()
 
 if model is None:
     st.warning(
-        "Preprocessing is working, but prediction/Grad-CAM requires "
-        "the final model checkpoint. Upload the .pt file in the sidebar."
+        "Preprocessing is working, but the automatic checkpoint could not "
+        "be loaded. Use the fallback checkpoint uploader in the sidebar."
     )
     st.stop()
 
