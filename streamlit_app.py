@@ -42,6 +42,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 with st.sidebar:
     st.header("Model")
     st.write(f"Device: **{device}**")
+    st.caption("Build: v1.0.0 · auto checkpoint")
 
     checkpoint_upload = st.file_uploader(
         "Fallback: upload checkpoint (.pt)",
