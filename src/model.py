@@ -1,12 +1,19 @@
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 from typing import BinaryIO
+from urllib.request import Request, urlopen
 
 import torch
 import torch.nn as nn
 
-from .config import DEFAULT_MODEL_PATH, NUM_CLASSES
+from .config import (
+    DEFAULT_MODEL_PATH,
+    MODEL_DOWNLOAD_URL,
+    MODEL_SHA256,
+    NUM_CLASSES,
+)
 
 
 class SimpleCNN(nn.Module):
@@ -58,6 +65,53 @@ def extract_state_dict(checkpoint):
     return cleaned
 
 
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as file:
+        for chunk in iter(lambda: file.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def download_default_checkpoint(
+    model_path: Path = DEFAULT_MODEL_PATH,
+    download_url: str = MODEL_DOWNLOAD_URL,
+) -> Path:
+    model_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if model_path.exists():
+        if _sha256(model_path) != MODEL_SHA256:
+            raise ValueError(
+                "Existing checkpoint hash does not match the verified final model."
+            )
+        return model_path
+
+    temp_path = model_path.with_suffix(model_path.suffix + ".download")
+    request = Request(
+        download_url,
+        headers={"User-Agent": "wafer-map-defect-classification-streamlit"},
+    )
+
+    try:
+        with urlopen(request, timeout=60) as response, temp_path.open("wb") as output:
+            while True:
+                chunk = response.read(1024 * 1024)
+                if not chunk:
+                    break
+                output.write(chunk)
+
+        if _sha256(temp_path) != MODEL_SHA256:
+            raise ValueError(
+                "Downloaded checkpoint hash does not match the verified final model."
+            )
+
+        temp_path.replace(model_path)
+        return model_path
+    except Exception:
+        temp_path.unlink(missing_ok=True)
+        raise
+
+
 def load_checkpoint_model(
     device: torch.device,
     checkpoint_upload: BinaryIO | None = None,
@@ -70,15 +124,10 @@ def load_checkpoint_model(
             checkpoint_upload.seek(0)
             checkpoint = torch.load(checkpoint_upload, map_location=device)
             source = "uploaded checkpoint"
-        elif model_path.exists():
-            checkpoint = torch.load(model_path, map_location=device)
-            source = str(model_path)
         else:
-            return None, (
-                "No checkpoint loaded. Upload "
-                "final_tempered_cnn_earlystop.pt or place it at "
-                f"{model_path}."
-            )
+            checkpoint_path = download_default_checkpoint(model_path=model_path)
+            checkpoint = torch.load(checkpoint_path, map_location=device)
+            source = "verified release checkpoint"
 
         model.load_state_dict(extract_state_dict(checkpoint), strict=True)
         model.eval()
