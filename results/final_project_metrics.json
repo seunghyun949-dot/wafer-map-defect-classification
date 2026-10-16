@@ -1,0 +1,21 @@
+{
+    "final_model": "Final Tempered CNN + Early Stopping",
+    "best_epoch": 24,
+    "test_accuracy": 0.971534,
+    "test_balanced_accuracy": 0.81366,
+    "test_macro_f1": 0.843355,
+    "scratch_recall": 0.451977,
+    "loc_recall": 0.666667,
+    "edge_loc_recall": 0.777202,
+    "total_test_samples": 25855,
+    "total_errors": 736,
+    "top_error_classes": [
+        "Loc",
+        "Edge-Loc",
+        "none",
+        "Scratch"
+    ],
+    "top4_error_cumulative_percent": 83.016304,
+    "largest_error_pair": "Loc -> none",
+    "largest_error_pair_count": 122
+}

@@ -1,0 +1,6 @@
+Model,Accuracy,Balanced Accuracy,Macro-F1
+Baseline CNN,0.966273,0.785095,0.774534
+Full Weighted CNN,0.932972,0.835566,0.753416
+Tempered CNN (10 epoch),0.967008,0.774774,0.78614
+Tempered + Augmentation,0.965964,0.813285,0.765485
+Final Tempered + Early Stopping,0.971534,0.81366,0.843355
