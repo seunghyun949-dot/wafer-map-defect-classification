@@ -4,10 +4,14 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   smoke-test:
     runs-on: ubuntu-latest
+
+    env:
+      PYTHONPATH: .
 
     steps:
       - name: Checkout
@@ -29,4 +33,4 @@ jobs:
 
       - name: Run smoke tests
         run: |
-          pytest -q
+          python -m pytest -q
