@@ -335,6 +335,11 @@ wafer-map-defect-classification/
 │   └── visualization.py
 ├── notebooks/
 │   └── wafer_project.ipynb
+├── samples/
+│   ├── synthetic_center.csv
+│   ├── synthetic_edge_ring.csv
+│   ├── synthetic_loc.csv
+│   └── synthetic_scratch.csv
 └── results/
     ├── final_model_comparison.csv
     ├── final_model_comparison.png
@@ -383,6 +388,19 @@ Final confusion / Pareto analysis
    ↓
 Result packaging
 ```
+
+---
+
+## Demo Samples
+
+업로드 테스트용 synthetic CSV 샘플을 `samples/`에 추가했습니다.
+
+- `samples/synthetic_center.csv`
+- `samples/synthetic_edge_ring.csv`
+- `samples/synthetic_loc.csv`
+- `samples/synthetic_scratch.csv`
+
+이 파일들은 실제 WM-811K test sample이 아니라 **UI / preprocessing / inference pipeline 동작 확인용**입니다.
 
 ---
 
