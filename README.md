@@ -325,6 +325,14 @@ wafer-map-defect-classification/
 ├── .gitignore
 ├── requirements.txt
 ├── streamlit_app.py
+├── src/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── model.py
+│   ├── preprocessing.py
+│   ├── inference.py
+│   ├── gradcam.py
+│   └── visualization.py
 ├── notebooks/
 │   └── wafer_project.ipynb
 └── results/
@@ -341,6 +349,8 @@ wafer-map-defect-classification/
 ```
 
 전체 실험 기록은 `notebooks/wafer_project.ipynb`에 정리되어 있습니다.
+
+Streamlit 코드는 UI와 핵심 로직을 분리하여 `src/` 모듈 구조로 정리했습니다.
 
 ---
 
